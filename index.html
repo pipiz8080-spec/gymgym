@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Dodge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="game-container">
+        <!-- 背景網格動畫層 -->
+        <div class="grid-background"></div>
+
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- Heads Up Display -->
+        <div id="hud">
+            <div class="score-container">SCORE: <span id="score">0</span></div>
+        </div>
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="screen active">
+            <h1 class="title">NEON <span class="highlight">DODGE</span></h1>
+            <p class="instruction">移動滑鼠躲避霓虹障礙</p>
+            <button id="start-btn" class="neon-btn">START GAME</button>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="game-over-screen" class="screen">
+            <h2 class="title">GAME OVER</h2>
+            <p class="final-score">Final Score: <span id="final-score">0</span></p>
+            <button id="restart-btn" class="neon-btn">TRY AGAIN</button>
+        </div>
+
+        <!-- Orientation Warning Screen -->
+        <div id="orientation-warning" class="screen">
+            <h2 class="title" style="font-size: 2rem;">PLEASE ROTATE DEVICE</h2>
+            <div class="rotate-icon">⟳</div>
+            <p class="instruction">橫屏遊玩體驗更佳</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

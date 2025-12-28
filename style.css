@@ -1,0 +1,208 @@
+:root {
+    --bg-color: #050505;
+    --primary-color: #00ffff;
+    /* Cyan */
+    --secondary-color: #ff00ff;
+    /* Magenta */
+    --danger-color: #ff0055;
+    --text-color: #ffffff;
+    --font-main: 'Orbitron', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+#game-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Background Grid Animation */
+.grid-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background-image:
+        linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 0, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+    animation: gridMove 20s linear infinite;
+    z-index: 0;
+    opacity: 0.3;
+}
+
+@keyframes gridMove {
+    0% {
+        transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px);
+    }
+
+    100% {
+        transform: perspective(500px) rotateX(60deg) translateY(50px) translateZ(-200px);
+    }
+}
+
+canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+/* UI Overlay */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(5, 5, 5, 0.85);
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.screen.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.title {
+    font-size: 4rem;
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+    text-shadow:
+        0 0 10px var(--primary-color),
+        0 0 20px var(--primary-color),
+        0 0 40px var(--primary-color);
+    animation: pulse 2s infinite alternate;
+}
+
+.title .highlight {
+    color: var(--secondary-color);
+    text-shadow:
+        0 0 10px var(--secondary-color),
+        0 0 20px var(--secondary-color),
+        0 0 40px var(--secondary-color);
+}
+
+.instruction {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    opacity: 0.8;
+    color: #ccc;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.neon-btn {
+    background: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    font-family: var(--font-main);
+    cursor: pointer;
+    text-shadow: 0 0 5px var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color) inset, 0 0 10px var(--primary-color);
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.neon-btn:hover {
+    background: var(--primary-color);
+    color: var(--bg-color);
+    box-shadow: 0 0 20px var(--primary-color), 0 0 40px var(--primary-color);
+    transform: scale(1.05);
+}
+
+/* HUD */
+#hud {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.score-container {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    text-shadow: 0 0 5px var(--text-color);
+}
+
+/* Animations */
+@keyframes pulse {
+    0% {
+        opacity: 0.8;
+        text-shadow: 0 0 10px var(--primary-color);
+    }
+
+    100% {
+        opacity: 1;
+        text-shadow: 0 0 25px var(--primary-color), 0 0 50px var(--primary-color);
+    }
+}
+
+/* Orientation Warning */
+#orientation-warning {
+    display: none;
+    z-index: 200;
+    background-color: var(--bg-color);
+    opacity: 1;
+    pointer-events: all;
+}
+
+.rotate-icon {
+    font-size: 5rem;
+    color: var(--primary-color);
+    margin: 20px 0;
+    animation: rotateIcon 2s infinite ease-in-out;
+}
+
+@keyframes rotateIcon {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    40% {
+        transform: rotate(-90deg);
+    }
+
+    100% {
+        transform: rotate(-90deg);
+    }
+}
+
+/* Mobile Portrait Detection */
+@media screen and (max-width: 1024px) and (orientation: portrait) {
+    #orientation-warning {
+        display: flex !important;
+    }
+
+    /* Pause/Hide other interactive elements if needed, though overlay covers them */
+}
